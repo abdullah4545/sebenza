@@ -89,7 +89,7 @@ class UserauthController extends Controller
             "status"=>true,
             "message"=>"Login Successfully",
             "data"=>[
-                'token' => $token,
+                'token12' => $token,
                 'user'=>$user
             ],
         ];
