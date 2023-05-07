@@ -19,12 +19,18 @@ class AdminauthController extends Controller
             $response = [
                 'status' =>false,
                 'message' => "Email Already Taken",
+                "data"=> [
+                    "admin"=>[],
+                ]
             ];
             return response()->json($response,201);
         }elseif($phonenumber){
                 $response = [
                     'status' =>false,
                     'message' => "Phone number has Already Taken",
+                    "data"=> [
+                        "admin"=>[],
+                    ]
                 ];
             return response()->json($response,201);
         }else{
@@ -42,8 +48,10 @@ class AdminauthController extends Controller
             $response=[
                 "status"=>true,
                 "message"=>"Admin Create Successfully",
-                "token"=> $token,
-                "data"=> $admin,
+                "data"=> [
+                    'token' => $token,
+                    "admin"=>$admin,
+                ]
             ];
             return response()->json($response, 200);
         }
@@ -56,7 +64,10 @@ class AdminauthController extends Controller
             $error = [
                     "status"=>false,
                     "message"=>"Login failed",
-                    "admin_id"=>0,
+                    "data"=> [
+                        'token' => '',
+                        "admin"=>[],
+                    ]
             ];
             return response()->json($error);
         }
@@ -68,8 +79,10 @@ class AdminauthController extends Controller
         $response = [
             "status"=>true,
             "message"=>"Login Successfully",
-            'token' => $token,
-            "data"=>$admin,
+            "data"=> [
+                'token' => $token,
+                "admin"=>$admin,
+            ]
         ];
 
         return response($response, 201);
@@ -82,7 +95,9 @@ class AdminauthController extends Controller
         $response = [
             "status"=>true,
             "message"=>"Admin Details",
-            "data"=>$admin,
+            "data"=> [
+                "admin"=>$admin,
+            ]
         ];
 
         return response($response, 201);
@@ -94,7 +109,9 @@ class AdminauthController extends Controller
         $error = [
             "status"=>true,
             "message" => 'Logout Successfully',
-            "admin_id"=>0,
+            "data"=> [
+                "admin"=>[],
+            ]
         ];
         return response()->json($error);
     }

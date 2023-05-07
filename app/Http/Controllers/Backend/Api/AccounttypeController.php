@@ -20,7 +20,10 @@ class AccounttypeController extends Controller
         $response = [
             'status' => true,
             'message'=>'List of account types',
-            'data'=> $accounttypes,
+            "data"=> [
+                'accounttypes'=> $accounttypes,
+            ]
+
         ];
         return response()->json($response,200);
     }
@@ -32,11 +35,13 @@ class AccounttypeController extends Controller
      */
     public function gettype()
     {
-        $accountpackages=Accounttype::where('status','Active')->get();
+        $accounttypes=Accounttype::where('status','Active')->get();
         $response = [
             'status' => true,
             'message'=>'List of account types',
-            'data'=> $accountpackages,
+            "data"=> [
+                'accounttypes'=> $accounttypes,
+            ]
         ];
         return response()->json($response,200);
     }
@@ -56,6 +61,9 @@ class AccounttypeController extends Controller
         $response=[
             "status"=>true,
             'message' => "Account type create successful",
+            "data"=> [
+                'accounttype'=> $accounttype,
+            ]
         ];
         return response()->json($response, 200);
     }
@@ -72,7 +80,9 @@ class AccounttypeController extends Controller
         $response = [
             'status' => true,
             'message' => 'Account Type By Id',
-            'data'=> $accounttype,
+            "data"=> [
+                'accounttype'=> $accounttype,
+            ]
         ];
         return response()->json($response,200);
     }
@@ -101,6 +111,9 @@ class AccounttypeController extends Controller
         $response=[
             "status"=>true,
             'message' => "Account type update successful",
+            "data"=> [
+                'accounttype'=> $accounttype,
+            ]
         ];
         return response()->json($response, 200);
     }
@@ -118,6 +131,9 @@ class AccounttypeController extends Controller
         $response = [
             'status' => true,
             'message'=> 'Account Type delete successfully',
+            "data"=> [
+                'accounttype'=> [],
+            ]
         ];
         return response()->json($response,200);
     }

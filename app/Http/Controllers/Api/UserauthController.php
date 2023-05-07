@@ -21,12 +21,20 @@ class UserauthController extends Controller
             $response = [
                 'status' =>false,
                 'message' => "Email Already Taken",
+                "data"=> [
+                    "token"=> '',
+                    "user"=>[],
+                ]
             ];
             return response()->json($response,201);
         }elseif($phonenumber){
                 $response = [
                     'status' =>false,
                     'message' => "Phone number has Already Taken",
+                    "data"=> [
+                        "token"=> '',
+                        "user"=>[],
+                    ]
                 ];
             return response()->json($response,201);
         }else{
@@ -75,7 +83,10 @@ class UserauthController extends Controller
             $error = [
                     "status"=>false,
                     "message"=>"Login failed",
-                    "user_id"=>0,
+                    "data"=> [
+                        "token"=> '',
+                        "user"=>[],
+                    ]
             ];
             return response()->json($error);
         }
@@ -90,7 +101,7 @@ class UserauthController extends Controller
             "message"=>"Login Successfully",
             "data"=>[
                 'token' => $token,
-                'user'=>$user
+                'user'=>$user,
             ],
         ];
 
@@ -104,7 +115,9 @@ class UserauthController extends Controller
         $response = [
             "status"=>true,
             "message"=>"User Details",
-            "data"=>$user,
+            "data"=> [
+                "user"=>$user,
+            ]
         ];
 
         return response($response, 201);
@@ -116,7 +129,9 @@ class UserauthController extends Controller
         $error = [
             'status'=>true,
             'message' => 'Logout Successfully',
-            "user_id"=>0,
+            "data"=> [
+                "user"=>[],
+            ]
         ];
         return response()->json($error);
     }

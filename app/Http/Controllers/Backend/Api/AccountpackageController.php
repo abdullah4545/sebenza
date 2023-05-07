@@ -20,7 +20,9 @@ class AccountpackageController extends Controller
         $response = [
             'status' => true,
             'message'=>'List of account packages',
-            'data'=> $accountpackages,
+            "data"=> [
+                'accountpackages'=> $accountpackages,
+            ]
         ];
         return response()->json($response,200);
     }
@@ -36,7 +38,9 @@ class AccountpackageController extends Controller
         $response = [
             'status' => true,
             'message'=>'List of account packages',
-            'data'=> $accountpackages,
+            "data"=> [
+                'accountpackages'=> $accountpackages,
+            ]
         ];
         return response()->json($response,200);
     }
@@ -57,6 +61,9 @@ class AccountpackageController extends Controller
         $response=[
             "status"=>true,
             'message' => "Account package create successful",
+            "data"=> [
+                'accountpackage'=> $accountpackage,
+            ]
         ];
         return response()->json($response, 200);
     }
@@ -73,7 +80,9 @@ class AccountpackageController extends Controller
         $response = [
             'status' => true,
             'message'=>'Account package by Id',
-            'data'=> $accountpackage,
+            "data"=> [
+                'accountpackage'=> $accountpackage,
+            ]
         ];
         return response()->json($response,200);
     }
@@ -103,6 +112,9 @@ class AccountpackageController extends Controller
         $response=[
             "status"=>true,
             'message' => "Account type update successful",
+            "data"=> [
+                'accountpackage'=> $accountpackage,
+            ]
         ];
         return response()->json($response, 200);
     }
@@ -120,6 +132,9 @@ class AccountpackageController extends Controller
         $response = [
             'status' => true,
             'message'=> 'Account Package delete successfully',
+            "data"=> [
+                'accountpackage'=> [],
+            ]
         ];
         return response()->json($response,200);
     }
