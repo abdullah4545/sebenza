@@ -39,9 +39,7 @@ class AccounttypeController extends Controller
         $response = [
             'status' => true,
             'message'=>'List of account types',
-            "data"=> [
-                'accounttypes'=> $accounttypes,
-            ]
+            "data"=> $accounttypes,
         ];
         return response()->json($response,200);
     }

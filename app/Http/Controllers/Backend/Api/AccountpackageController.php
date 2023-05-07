@@ -38,9 +38,7 @@ class AccountpackageController extends Controller
         $response = [
             'status' => true,
             'message'=>'List of account packages',
-            "data"=> [
-                'accountpackages'=> $accountpackages,
-            ]
+            "data"=> $accountpackages,
         ];
         return response()->json($response,200);
     }
