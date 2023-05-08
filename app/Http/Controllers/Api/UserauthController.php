@@ -92,7 +92,7 @@ class UserauthController extends Controller
         }
 
 
-        $user = User::with('roles')->where('id', $user->id)->first();
+        $user = User::with(['roles'=>function ($query) { $query->select('id','name','guard_name');}])->where('id', $user->id)->first();
 
         $token = $user->createToken('user')->plainTextToken;
 
