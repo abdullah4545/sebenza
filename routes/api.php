@@ -49,6 +49,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::post('accountpackage/update', [AccountpackageController::class, 'update']);
 
     Route::resource('userroles', UserRolesController::class);
+    Route::post('userrole/update', [UserRolesController::class,'update']);
 
 
 });
