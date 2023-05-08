@@ -137,7 +137,7 @@ class UserRolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        return $request;
         $role =Role::with('permissions')->where('id',$id)->where('guard_name','web')->first();
         if(empty($role)){
             $response=[

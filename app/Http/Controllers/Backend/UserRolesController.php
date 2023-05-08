@@ -91,7 +91,6 @@ class UserRolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $role =Role::findById($id,'web');
         if(empty($role)){
             return redirect()->back()->with('error','Something went wrong');
