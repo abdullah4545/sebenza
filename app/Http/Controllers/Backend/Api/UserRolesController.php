@@ -60,7 +60,7 @@ class UserRolesController extends Controller
                 ];
                 return response()->json($response, 200);
             }else{
-                $permissions =$request->permission;
+                $permissions =json_decode($request->permission);
                 if(!empty($permissions)){
                     $role->syncPermissions($permissions);
                 }
