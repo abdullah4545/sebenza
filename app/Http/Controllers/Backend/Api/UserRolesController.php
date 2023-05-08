@@ -138,7 +138,7 @@ class UserRolesController extends Controller
     public function update(Request $request, $id)
     {
 
-        $role =Role::findById($id,'web');
+        $role =Role::with('permissions')->where('id',$id)->where('guard_name','web')->first();
         if(empty($role)){
             $response=[
                 "status"=>false,
