@@ -18,7 +18,7 @@ class UserRolesController extends Controller
      */
     public function index()
     {
-        $roles =Role::where('guard_name','web')->get();
+        $roles =Role::with('permissions')->where('guard_name','web')->get();
         $response = [
             'status' => true,
             'message'=>'List of user roles',
@@ -108,7 +108,7 @@ class UserRolesController extends Controller
      */
     public function edit($id)
     {
-        $role =Role::findById($id,'web');
+        $role =Role::with('permissions')->where('id',$id)->where('name','web')->first();
         $allpermissions =Permission::where('guard_name','web')->get();
         $permission_groups =User::getPermissionGroups();
         $response=[
