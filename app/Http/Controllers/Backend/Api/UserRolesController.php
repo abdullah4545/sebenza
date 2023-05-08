@@ -137,7 +137,6 @@ class UserRolesController extends Controller
      */
     public function update(Request $request)
     {
-        return $request;
         $role =Role::with('permissions')->where('id',$request->role_id)->where('guard_name','web')->first();
         if(empty($role)){
             $response=[
@@ -149,7 +148,7 @@ class UserRolesController extends Controller
             ];
             return response()->json($response, 200);
         }else{
-            $permissions =$request->permission;
+            $permissions =json_decode($request->permission);
             if(!empty($permissions)){
                 $role->syncPermissions($permissions);
             }
