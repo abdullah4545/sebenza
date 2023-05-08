@@ -108,7 +108,7 @@ class UserRolesController extends Controller
      */
     public function edit($id)
     {
-        $role =Role::with('permissions')->where('id',$id)->where('name','web')->first();
+        $role =Role::with('permissions')->where('id',$id)->where('guard_name','web')->first();
         $allpermissions =Permission::where('guard_name','web')->get();
         $permission_groups =User::getPermissionGroups();
         $response=[
