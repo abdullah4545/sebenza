@@ -90,7 +90,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $roles =Role::where('guard_name','web')->get();
-        $user =User::where('id',$id)->first();
+        $user =User::with('roles')->where('id',$id)->first();
         $response = [
             'status' => true,
             'message'=>'User By ID',
