@@ -30,6 +30,8 @@ class UserRolesController extends Controller
         return response()->json($response,200);
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -99,6 +101,20 @@ class UserRolesController extends Controller
         return response()->json($response, 200);
     }
 
+    public function getpermissions()
+    {
+        $allpermissions =Permission::where('guard_name','web')->get();
+        $permission_groups =User::getPermissionGroups();
+        $response=[
+            "status"=>true,
+            'message' => "Create Role",
+            "data"=> [
+                'permissions'=> $allpermissions,
+                'permissiongroups'=>$permission_groups,
+            ]
+        ];
+        return response()->json($response, 200);
+    }
 
     /**
      * Show the form for editing the specified resource.

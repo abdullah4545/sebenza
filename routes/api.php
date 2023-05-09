@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\Api\AdminauthController;
 use App\Http\Controllers\Backend\Api\AccounttypeController;
 use App\Http\Controllers\Backend\Api\AccountpackageController;
 use App\Http\Controllers\Backend\Api\UserRolesController;
+use App\Http\Controllers\Backend\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,11 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::post('accountpackage/update', [AccountpackageController::class, 'update']);
 
     Route::resource('userroles', UserRolesController::class);
-    Route::post('userrole/update', [UserRolesController::class,'update']);
+    Route::post('userrole/update', );
+    Route::get('getpermissions', [UserRolesController::class,'getpermissions']);
 
+    Route::resource('users', UserController::class,);
+    Route::post('user/update', [UserController::class,'update']);
+    Route::get('getroles', [UserController::class,'getuserroles']);
 
 });
