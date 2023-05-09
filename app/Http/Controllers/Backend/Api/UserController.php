@@ -40,8 +40,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user=new User();
-        $user->first_name=$request->name;
-        $user->last_name=$request->name;
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
         $user->company_name=$request->company_name;
         $user->email=$request->email;
         $user->password=Hash::make($request->password);
@@ -119,8 +119,8 @@ class UserController extends Controller
     {
 
         $user=User::where('id',$request->user_id);
-        $user->first_name=$request->name;
-        $user->last_name=$request->name;
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
         $user->company_name=$request->company_name;
         $user->email=$request->email;
         if($request->password){
