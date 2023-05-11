@@ -127,7 +127,7 @@ class UserController extends Controller
             $user->password=Hash::make($request->password);
         }
         $user->phone=$request->phone;
-        $user->save();
+        $user->update();
         $user->roles()->detach();
         if($request->roles){
             $user->assignRole($request->roles);

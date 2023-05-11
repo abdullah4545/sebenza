@@ -18,7 +18,7 @@ class UserRolesController extends Controller
      */
     public function index()
     {
-        $roles =Role::with('permissions')->where('guard_name','web')->get();
+        $roles =Role::where('guard_name','web')->get();
         $response = [
             'status' => true,
             'message'=>'List of user roles',
@@ -62,10 +62,6 @@ class UserRolesController extends Controller
                 ];
                 return response()->json($response, 200);
             }else{
-                $permissions =json_decode($request->permission);
-                if(!empty($permissions)){
-                    $role->syncPermissions($permissions);
-                }
                 $response=[
                     "status"=>true,
                     'message' => "Role created successfully",
@@ -86,35 +82,6 @@ class UserRolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $allpermissions =Permission::where('guard_name','web')->get();
-        $permission_groups =User::getPermissionGroups();
-        $response=[
-            "status"=>true,
-            'message' => "Create Role",
-            "data"=> [
-                'permissions'=> $allpermissions,
-                'permissiongroups'=>$permission_groups,
-            ]
-        ];
-        return response()->json($response, 200);
-    }
-
-    public function getpermissions()
-    {
-        $allpermissions =Permission::where('guard_name','web')->get();
-        $permission_groups =User::getPermissionGroups();
-        $response=[
-            "status"=>true,
-            'message' => "Create Role",
-            "data"=> [
-                'permissions'=> $allpermissions,
-                'permissiongroups'=>$permission_groups,
-            ]
-        ];
-        return response()->json($response, 200);
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -124,16 +91,12 @@ class UserRolesController extends Controller
      */
     public function edit($id)
     {
-        $role =Role::with('permissions')->where('id',$id)->where('guard_name','web')->first();
-        $allpermissions =Permission::where('guard_name','web')->get();
-        $permission_groups =User::getPermissionGroups();
+        $role =Role::where('id',$id)->where('guard_name','web')->first();
         $response=[
             "status"=>true,
             'message' => "Role By Role ID",
             "data"=> [
                 'role'=>$role,
-                'permissions'=> $allpermissions,
-                'permissiongroups'=>$permission_groups,
             ]
         ];
         return response()->json($response, 200);
@@ -153,8 +116,12 @@ class UserRolesController extends Controller
      */
     public function update(Request $request)
     {
-        $role =Role::with('permissions')->where('id',$request->role_id)->where('guard_name','web')->first();
+        $role =Role::where('id',$request->role_id)->where('guard_name','web')->first();
+        $role->name=$request->roleName;
+        $role->update();
+
         if(empty($role)){
+
             $response=[
                 "status"=>false,
                 'message' => "Something went wrong",
@@ -164,10 +131,6 @@ class UserRolesController extends Controller
             ];
             return response()->json($response, 200);
         }else{
-            $permissions =json_decode($request->permission);
-            if(!empty($permissions)){
-                $role->syncPermissions($permissions);
-            }
             $response=[
                 "status"=>true,
                 'message' => "Role update successfully",
