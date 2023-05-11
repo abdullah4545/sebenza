@@ -39,7 +39,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
         $user=new User();
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
@@ -118,7 +117,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-return $request;
+
         $user=User::where('id',$request->user_id);
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
