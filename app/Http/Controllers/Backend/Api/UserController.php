@@ -138,28 +138,39 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user=User::where('id',$request->user_id)->first();
-        $user->first_name=$request->first_name;
-        $user->last_name=$request->last_name;
-        $user->company_name=$request->company_name;
-        $user->email=$request->email;
-        if($request->password){
-            $user->password=Hash::make($request->password);
-        }
-        $user->phone=$request->phone;
-        $user->update();
-        $user->roles()->detach();
-        if($request->roles){
-            $user->assignRole($request->roles);
-        }
+        if(isset($user)){
+            $user->first_name=$request->first_name;
+            $user->last_name=$request->last_name;
+            $user->company_name=$request->company_name;
+            $user->email=$request->email;
+            if($request->password){
+                $user->password=Hash::make($request->password);
+            }
+            $user->phone=$request->phone;
+            $user->update();
+            $user->roles()->detach();
+            if($request->roles){
+                $user->assignRole($request->roles);
+            }
 
-        $response=[
-            "status"=>true,
-            'message' => "User updated successfully",
-            "data"=> [
-                'user'=> $user,
-            ]
-        ];
-        return response()->json($response, 200);
+            $response=[
+                "status"=>true,
+                'message' => "User updated successfully",
+                "data"=> [
+                    'user'=> $user,
+                ]
+            ];
+            return response()->json($response, 200);
+        }else{
+            $response=[
+                "status"=>false,
+                'message' => "User not found",
+                "data"=> [
+                    'user'=> [],
+                ]
+            ];
+            return response()->json($response, 200);
+        }
 
     }
 
