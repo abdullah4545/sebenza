@@ -59,17 +59,16 @@ class UserauthController extends Controller
                 $package=Accountpackage::where('id',$request->user_limit_id)->first();
                 $user->user_limit=$package->account_package;
             }
+            $user->assignRole(5);
             $user->save();
-            $usernew=User::where('id',$user->id)->first();
-            $usernew->assignRole(5);
-            $use=User::with('roles')->where('id',$user->id)->first();
+
             $token = $user->createToken('user')->plainTextToken;
             $response=[
                 "status"=>true,
                 "message"=>"User Create Successfully",
                 "data"=> [
                     "token"=> $token,
-                    "user"=>$use,
+                    "user"=>$user,
                 ]
             ];
             return response()->json($response, 200);

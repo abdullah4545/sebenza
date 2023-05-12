@@ -45,4 +45,5 @@ Route::group(['prefix'=>'admin','middleware' => ['auth.admin:admin']], function 
     Route::post('/pixel/analytics/{id}', [BasicinfoController::class, 'pixelanalytics']);
     Route::post('/basicinfo/update/{id}', [BasicinfoController::class, 'sociallink']);
 
+
 });

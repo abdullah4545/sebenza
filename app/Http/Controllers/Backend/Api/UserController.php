@@ -39,25 +39,50 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user=new User();
-        $user->first_name=$request->first_name;
-        $user->last_name=$request->last_name;
-        $user->company_name=$request->company_name;
-        $user->email=$request->email;
-        $user->password=Hash::make($request->password);
-        $user->phone=$request->phone;
-        $user->save();
-        if($request->roles){
-            $user->assignRole($request->roles);
+        $email=User::where('email', $request->email)->first();
+        $phonenumber=User::where('phone', $request->phone)->first();
+        if($email){
+            $response = [
+                'status' =>false,
+                'message' => "Email Already Taken",
+                "data"=> [
+                    "token"=> '',
+                    "user"=>[],
+                ]
+            ];
+            return response()->json($response,201);
+        }elseif($phonenumber){
+                $response = [
+                    'status' =>false,
+                    'message' => "Phone number has Already Taken",
+                    "data"=> [
+                        "token"=> '',
+                        "user"=>[],
+                    ]
+                ];
+            return response()->json($response,201);
+        }else{
+            $user=new User();
+            $user->first_name=$request->first_name;
+            $user->last_name=$request->last_name;
+            $user->company_name=$request->company_name;
+            $user->email=$request->email;
+            $user->password=Hash::make($request->password);
+            $user->phone=$request->phone;
+            $user->save();
+            if($request->roles){
+                $user->assignRole($request->roles);
+            }
+            $response=[
+                "status"=>true,
+                'message' => "User created successfully",
+                "data"=> [
+                    'user'=> $user,
+                ]
+            ];
+            return response()->json($response, 200);
         }
-        $response=[
-            "status"=>true,
-            'message' => "User created successfully",
-            "data"=> [
-                'user'=> $user,
-            ]
-        ];
-        return response()->json($response, 200);
+
     }
 
     /**
@@ -103,11 +128,6 @@ class UserController extends Controller
         return response()->json($response,200);
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -117,7 +137,6 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-
         $user=User::where('id',$request->user_id)->first();
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;

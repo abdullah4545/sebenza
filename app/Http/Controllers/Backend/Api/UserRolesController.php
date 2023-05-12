@@ -30,8 +30,6 @@ class UserRolesController extends Controller
         return response()->json($response,200);
     }
 
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -102,11 +100,6 @@ class UserRolesController extends Controller
         return response()->json($response, 200);
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -121,7 +114,6 @@ class UserRolesController extends Controller
         $role->update();
 
         if(empty($role)){
-
             $response=[
                 "status"=>false,
                 'message' => "Something went wrong",

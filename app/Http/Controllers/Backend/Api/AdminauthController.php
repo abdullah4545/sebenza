@@ -25,13 +25,13 @@ class AdminauthController extends Controller
             ];
             return response()->json($response,201);
         }elseif($phonenumber){
-                $response = [
-                    'status' =>false,
-                    'message' => "Phone number has Already Taken",
-                    "data"=> [
-                        "admin"=>[],
-                    ]
-                ];
+            $response = [
+                'status' =>false,
+                'message' => "Phone number has Already Taken",
+                "data"=> [
+                    "admin"=>[],
+                ]
+            ];
             return response()->json($response,201);
         }else{
             $admin=new Admin();
