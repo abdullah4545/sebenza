@@ -62,14 +62,14 @@ class UserauthController extends Controller
             $user->save();
             $usernew=User::where('id',$user->id)->first();
             $usernew->assignRole(5);
-
+            $use=User::with('roles')->where('id',$user->id)->first();
             $token = $user->createToken('user')->plainTextToken;
             $response=[
                 "status"=>true,
                 "message"=>"User Create Successfully",
                 "data"=> [
                     "token"=> $token,
-                    "user"=>$user,
+                    "user"=>$use,
                 ]
             ];
             return response()->json($response, 200);
