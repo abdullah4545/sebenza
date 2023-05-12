@@ -120,8 +120,8 @@ class UserController extends Controller
             'status' => true,
             'message'=>'User By ID',
             "data"=> [
-                'roles'=> $roles,
                 'user'=> $user,
+                'roles'=> $roles,
             ]
 
         ];
