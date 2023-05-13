@@ -54,7 +54,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::get('getpermissions', [UserRolesController::class,'getpermissions']);
 
     Route::resource('users', UserController::class,);
-    Route::post('user/update', [UserController::class,'update']);
+    Route::post('user/update/{id}', [UserController::class,'update']);
     Route::get('getroles', [UserController::class,'getuserroles']);
 
 });
