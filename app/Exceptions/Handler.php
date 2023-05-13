@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (QueryException  $request) {
+        $this->reportable(function (QueryException  $e) {
 
                 $response=[
                     "status"=>false,
