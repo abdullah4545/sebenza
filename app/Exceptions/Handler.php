@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\MissingAppKeyException;
 
 class Handler extends ExceptionHandler
 {
@@ -41,5 +42,14 @@ class Handler extends ExceptionHandler
                     'message' => "No query found for this url",
                 ], 404);
         });
+
+        $this->renderable(function (MissingAppKeyException  $e) {
+            return response()->json([
+                    "status"=>false,
+                    'message' => "CSRF Token not match.",
+                ], 404);
+        });
+
+
     }
 }
