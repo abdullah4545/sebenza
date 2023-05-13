@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Database\QueryException;
 
 class Handler extends ExceptionHandler
 {
@@ -34,7 +35,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (\Illuminate\Database\QueryException $e,$request) {
+        $this->reportable(function (QueryException $e,$request) {
             if($request->is('api/*')){
                 $response=[
                     "status"=>false,
