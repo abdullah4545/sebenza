@@ -68,7 +68,7 @@ class BasicinfoController extends Controller
 
     public function pixelanalytics(Request $request)
     {
-        $webinfo =Basicinfo::where('id',$id)->first();
+        $webinfo =Basicinfo::first();
         $webinfo->facebook_pixel=$request->facebook_pixel;
         $webinfo->google_analytics=$request->google_analytics;
         $webinfo->update();
