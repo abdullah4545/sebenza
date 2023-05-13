@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Accounttype;
 use Illuminate\Http\Request;
-use App\Services\PayUService\Exception;
 
 class AccounttypeController extends Controller
 {
@@ -77,28 +76,16 @@ class AccounttypeController extends Controller
      */
     public function edit($id)
     {
-        try {
-            $accounttype=Accounttype::where('id',$id)->first();
-            $response = [
-                'status' => true,
-                'message' => 'Account Type By Id',
-                "data"=> [
-                    'accounttype'=> $accounttype,
-                ]
-            ];
-            return response()->json($response,200);
+        $accounttype=Accounttype::where('id',$id)->first();
+        $response = [
+            'status' => true,
+            'message' => 'Account Type By Id',
+            "data"=> [
+                'accounttype'=> $accounttype,
+            ]
+        ];
+        return response()->json($response,200);
 
-        } catch (\Exception $e) {
-            $response = [
-                'status' => false,
-                'message'=>$e->getMessage(),
-                "data"=> [
-                    'accounttype'=> [],
-                ]
-
-            ];
-            return response()->json($response,200);
-        }
 
     }
 

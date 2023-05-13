@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Basicinfo;
 use Illuminate\Http\Request;
-use App\Services\PayUService\Exception;
 
 class BasicinfoController extends Controller
 {
@@ -16,30 +15,17 @@ class BasicinfoController extends Controller
      */
     public function index()
     {
-        try {
+        $webinfo =Basicinfo::first();
+        $response = [
+            'status' => true,
+            'message'=>'Software basic infos',
+            "data"=> [
+                'basicinfo'=> $webinfo,
+            ]
 
-            $webinfo =Basicinfo::first();
-            $response = [
-                'status' => true,
-                'message'=>'Software basic infos',
-                "data"=> [
-                    'basicinfo'=> $webinfo,
-                ]
+        ];
+        return response()->json($response,200);
 
-            ];
-            return response()->json($response,200);
-
-        } catch (\Exception $e) {
-            $response = [
-                'status' => false,
-                'message'=>$e->getMessage(),
-                "data"=> [
-                    'basicinfo'=> [],
-                ]
-
-            ];
-            return response()->json($response,200);
-        }
 
     }
 
