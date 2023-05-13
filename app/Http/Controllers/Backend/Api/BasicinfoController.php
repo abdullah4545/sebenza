@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Basicinfo;
 use Illuminate\Http\Request;
+use App\Services\PayUService\Exception;
 
 class BasicinfoController extends Controller
 {
