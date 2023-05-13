@@ -66,7 +66,7 @@ class BasicinfoController extends Controller
         return response()->json($response,200);
     }
 
-    public function pixelanalytics(Request $request, $id)
+    public function pixelanalytics(Request $request)
     {
         $webinfo =Basicinfo::where('id',$id)->first();
         $webinfo->facebook_pixel=$request->facebook_pixel;
@@ -83,7 +83,7 @@ class BasicinfoController extends Controller
         return response()->json($response,200);
     }
 
-    public function sociallink(Request $request, $id)
+    public function sociallink(Request $request)
     {
         $webinfo =Basicinfo::first();
         if(isset($request->facebook)){
@@ -145,7 +145,7 @@ class BasicinfoController extends Controller
 
     }
 
-     public function seometa(Request $request, $id)
+     public function seometa(Request $request)
     {
         $webinfo =Basicinfo::where('id',$id)->first();
         $webinfo->site_name=$request->site_name;
