@@ -59,5 +59,8 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::get('getroles', [UserController::class,'getuserroles']);
 
     Route::resource('basicinfos', BasicinfoController::class);
+    Route::post('pixel/analytics', [BasicinfoController::class, 'pixelanalytics']);
+    Route::post('social/links', [BasicinfoController::class, 'sociallink']);
+    Route::post('seo/meta', [BasicinfoController::class, 'seometa']);
 
 });

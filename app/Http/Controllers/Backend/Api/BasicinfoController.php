@@ -35,13 +35,13 @@ class BasicinfoController extends Controller
      * @param  \App\Models\Basicinfo  $basicinfo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $webinfo =Basicinfo::where('id',$id)->first();
-        $webinfo->email=$request-> email;
-        $webinfo->phone_one=$request-> phone_one;
-        $webinfo->phone_two=$request-> phone_two;
-        $webinfo->address=$request-> address;
+        $webinfo =Basicinfo::first();
+        $webinfo->title=$request->title;
+        $webinfo->email=$request->email;
+        $webinfo->contact=$request->contact;
+        $webinfo->address=$request->address;
         if($request->logo){
             if($webinfo->logo =='public/webview/assets/images/logo.png'){
             }else{
@@ -49,13 +49,21 @@ class BasicinfoController extends Controller
             }
             $logo = $request->file('logo');
             $name = time() . "_" . $logo->getClientOriginalName();
-            $uploadPath = ('public/images/categorybanner/');
+            $uploadPath = ('public/images/logo/');
             $logo->move($uploadPath, $name);
             $logoImgUrl = $uploadPath . $name;
             $webinfo->logo = $logoImgUrl;
         }
-        $webinfo->save();
-        return redirect()->back()->with('message','Info updated successfully');
+        $webinfo->update();
+        $response = [
+            'status' => true,
+            'message'=>'Basic info update successfully',
+            "data"=> [
+                'basicinfo'=> $webinfo,
+            ]
+
+        ];
+        return response()->json($response,200);
     }
 
     public function pixelanalytics(Request $request, $id)
@@ -64,16 +72,39 @@ class BasicinfoController extends Controller
         $webinfo->facebook_pixel=$request->facebook_pixel;
         $webinfo->google_analytics=$request->google_analytics;
         $webinfo->update();
-        return redirect()->back()->with('message','Pixel & Analytics updated successfully');
+        $response = [
+            'status' => true,
+            'message'=>'Pixel & Analytics updated successfully',
+            "data"=> [
+                'basicinfo'=> $webinfo,
+            ]
+
+        ];
+        return response()->json($response,200);
     }
 
     public function sociallink(Request $request, $id)
     {
-        $webinfo =Basicinfo::where('id',$id)->first();
+        $webinfo =Basicinfo::first();
         if(isset($request->facebook)){
             $webinfo->facebook=$request->facebook;
         }else{
             $webinfo->facebook=null;
+        }
+        if(isset($request->instagram)){
+            $webinfo->instagram=$request->instagram;
+        }else{
+            $webinfo->instagram=null;
+        }
+        if(isset($request->tiktok)){
+            $webinfo->tiktok=$request->tiktok;
+        }else{
+            $webinfo->tiktok=null;
+        }
+        if(isset($request->pinterest)){
+            $webinfo->pinterest=$request->pinterest;
+        }else{
+            $webinfo->pinterest=null;
         }
         if(isset($request->twitter)){
             $webinfo->twitter=$request->twitter;
@@ -90,11 +121,6 @@ class BasicinfoController extends Controller
         }else{
             $webinfo->rss=null;
         }
-        if(isset($request->pinterest)){
-            $webinfo->pinterest=$request->pinterest;
-        }else{
-            $webinfo->pinterest=null;
-        }
         if(isset($request->linkedin)){
             $webinfo->linkedin=$request->linkedin;
         }else{
@@ -106,17 +132,35 @@ class BasicinfoController extends Controller
             $webinfo->youtube=null;
         }
         $webinfo->update();
-        return redirect()->back()->with('message','Social Links updated successfully');
+
+        $response = [
+            'status' => true,
+            'message'=>'Social Links updated successfully',
+            "data"=> [
+                'basicinfo'=> $webinfo,
+            ]
+
+        ];
+        return response()->json($response,200);
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Basicinfo  $basicinfo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Basicinfo $basicinfo)
+     public function seometa(Request $request, $id)
     {
-        //
+        $webinfo =Basicinfo::where('id',$id)->first();
+        $webinfo->site_name=$request->site_name;
+        $webinfo->meta_description=$request->meta_description;
+        $webinfo->meta_keyword=$request->meta_keyword;
+        $webinfo->update();
+        $response = [
+            'status' => true,
+            'message'=>'Seo meta info update successfully',
+            "data"=> [
+                'basicinfo'=> $webinfo,
+            ]
+
+        ];
+        return response()->json($response,200);
     }
+
 }

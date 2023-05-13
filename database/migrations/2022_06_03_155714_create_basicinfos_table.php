@@ -19,12 +19,15 @@ class CreateBasicinfosTable extends Migration
             $table->string('email')->nullable();
             $table->text('logo')->nullable();
             $table->text('address')->nullable();
-            $table->string('site_name')->nullable();
             $table->text('title')->nullable();
+
+            $table->string('site_name')->nullable();
             $table->longText('meta_description')->nullable();
             $table->longText('meta_keyword')->nullable();
+
             $table->text('facebook_pixel')->nullable();
             $table->text('google_analytics')->nullable();
+
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('tiktok')->nullable();
