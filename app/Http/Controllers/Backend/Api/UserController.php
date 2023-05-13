@@ -137,9 +137,8 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $uid=Number($request->user_id);
-        return $uid;
-        $user=User::where('id',$uid)->first();
+        $uid=$request->user_id;
+        $user=User::findOrfail($uid)->first();
         if(isset($user)){
             $user->first_name=$request->first_name;
             $user->last_name=$request->last_name;
