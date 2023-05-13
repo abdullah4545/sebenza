@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (QueryException  $e) {
+        $this->renderable(function (QueryException  $e) {
             return response()->json(['message',"No query found for this url" ], 404);
         });
     }
