@@ -76,15 +76,30 @@ class AccounttypeController extends Controller
      */
     public function edit($id)
     {
-        $accounttype=Accounttype::where('id',$id)->first();
-        $response = [
-            'status' => true,
-            'message' => 'Account Type By Id',
-            "data"=> [
-                'accounttype'=> $accounttype,
-            ]
-        ];
-        return response()->json($response,200);
+        try {
+
+            $accounttype=Accounttype::where('id',$id)->first();
+            $response = [
+                'status' => true,
+                'message' => 'Account Type By Id',
+                "data"=> [
+                    'accounttype'=> $accounttype,
+                ]
+            ];
+            return response()->json($response,200);
+
+        } catch (\Exception $e) {
+            $response = [
+                'status' => false,
+                'message'=>$e->getMessage(),
+                "data"=> [
+                    'accounttype'=> [],
+                ]
+
+            ];
+            return response()->json($response,200);
+        }
+
     }
 
     /**

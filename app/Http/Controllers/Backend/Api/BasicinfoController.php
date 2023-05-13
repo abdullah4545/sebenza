@@ -15,16 +15,31 @@ class BasicinfoController extends Controller
      */
     public function index()
     {
-        $webinfo =Basicinfo::first();
-        $response = [
-            'status' => true,
-            'message'=>'Software basic infos',
-            "data"=> [
-                'basicinfo'=> $webinfo,
-            ]
+        try {
 
-        ];
-        return response()->json($response,200);
+            $webinfo =Basicinfo::first();
+            $response = [
+                'status' => true,
+                'message'=>'Software basic infos',
+                "data"=> [
+                    'basicinfo'=> $webinfo,
+                ]
+
+            ];
+            return response()->json($response,200);
+
+        } catch (\Exception $e) {
+            $response = [
+                'status' => false,
+                'message'=>$e->getMessage(),
+                "data"=> [
+                    'basicinfo'=> [],
+                ]
+
+            ];
+            return response()->json($response,200);
+        }
+
     }
 
 
