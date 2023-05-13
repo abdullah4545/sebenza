@@ -139,6 +139,7 @@ class UserController extends Controller
     {
         $uid=$request->user_id;
         $user=User::findOrfail($uid)->first();
+        return $uid;
         if(isset($user)){
             $user->first_name=$request->first_name;
             $user->last_name=$request->last_name;
