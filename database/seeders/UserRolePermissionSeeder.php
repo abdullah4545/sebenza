@@ -16,7 +16,7 @@ class UserRolePermissionSeeder extends Seeder
     public function run()
     {
         // create role
-        $roleuser = Role::create(['name' => 'Super User','guard_name' => 'web']);
+        $roleuser = Role::create(['name' => 'superuser','guard_name' => 'web']);
 
         //permission
         $permissions = [
