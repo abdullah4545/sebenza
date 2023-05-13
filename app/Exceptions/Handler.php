@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\MissingAppKeyException;
+use Illuminate\Encryption\MissingAppKeyException;
 
 class Handler extends ExceptionHandler
 {
