@@ -30,12 +30,12 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
-     *
+     *s
      * @return void
      */
     public function register()
     {
-        $this->reportable(function (QueryException $request) {
+        $this->reportable(function (QueryException $e, $request) {
             if($request->is('api/*')){
                 $response=[
                     "status"=>false,
@@ -46,3 +46,4 @@ class Handler extends ExceptionHandler
         });
     }
 }
+
