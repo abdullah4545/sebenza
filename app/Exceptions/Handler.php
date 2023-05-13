@@ -35,15 +35,13 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (QueryException $e, $request) {
-            if($request->is('api/*')){
+        $this->reportable(function (QueryException  $request) {
+
                 $response=[
                     "status"=>false,
                     'message' => "No query found for this url",
                 ];
                 return response()->json($response, 200);
-            }
         });
     }
 }
-
