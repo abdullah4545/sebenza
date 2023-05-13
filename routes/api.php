@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Api\AccounttypeController;
 use App\Http\Controllers\Backend\Api\AccountpackageController;
 use App\Http\Controllers\Backend\Api\UserRolesController;
 use App\Http\Controllers\Backend\Api\UserController;
+use App\Http\Controllers\Backend\Api\BasicinfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,5 +57,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::resource('users', UserController::class,);
     Route::post('user/update/{id}', [UserController::class,'update']);
     Route::get('getroles', [UserController::class,'getuserroles']);
+
+    Route::resource('basicinfos', BasicinfoController::class);
 
 });
