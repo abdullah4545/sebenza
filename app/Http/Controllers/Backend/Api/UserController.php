@@ -135,11 +135,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $uid=(int)$request->user_id;
-        $user=User::where('id',$uid)->first();
-        return $uid;
+        $user=User::where('id',$id)->first();
+
         if(isset($user)){
             $user->first_name=$request->first_name;
             $user->last_name=$request->last_name;
