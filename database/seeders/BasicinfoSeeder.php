@@ -16,10 +16,9 @@ class BasicinfoSeeder extends Seeder
     public function run()
     {
         $basic = new Basicinfo();
-        $basic->phone_one= '8801647368141';
-        $basic->phone_two= '8801647368141';
+        $basic->contact= '8801647368141';
         $basic->email= 'support@crm.com';
-        $basic->address= 'House:22,Road:4,Block:D,Estern Housing,Mirpur:11.5';
+        $basic->address= 'House:22,Road:4,Block:D';
         $basic->logo= 'public/webview/assets/images/logo.png';
         $basic->save();
     }
