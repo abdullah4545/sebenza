@@ -147,7 +147,7 @@ class BasicinfoController extends Controller
 
      public function seometa(Request $request)
     {
-        $webinfo =Basicinfo::where('id',$id)->first();
+        $webinfo =Basicinfo::first();
         $webinfo->site_name=$request->site_name;
         $webinfo->meta_description=$request->meta_description;
         $webinfo->meta_keyword=$request->meta_keyword;
