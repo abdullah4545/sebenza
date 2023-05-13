@@ -34,7 +34,7 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function (QueryException $e ,$request) {
+        $this->renderable(function (QueryException $e,$request) {
             if($request->is('api/*')){
                 $response=[
                     "status"=>false,
