@@ -48,14 +48,24 @@ class NewsupdateController extends Controller
         $news=new Newsupdate();
         $news->title=$request->title;
         $news->news=$request->news;
-        if ($request->hasFile('postImage')) {
-            foreach ($request->file('postImage') as $imgfiles) {
-                $name = time() . "_" . $imgfiles->getClientOriginalName();
-                $imgfiles->move(public_path() . '/images/news/', $name);
-                $imageData[] = $name;
-            }
-            $news->postImage = json_encode($imageData);
-        };
+
+        $newsImg = $request->file('postImage');
+        if($newsImg){
+            $imgname = $time . $newsImg->getClientOriginalName();
+            $imguploadPath = ('public/images/news/');
+            $newsImg->move($imguploadPath, $imgname);
+            $newsImgUrl = $imguploadPath . $imgname;
+            $news->postImage = $newsImgUrl;
+        }
+
+        // if ($request->hasFile('postImage')) {
+        //     foreach ($request->file('postImage') as $imgfiles) {
+        //         $name = time() . "_" . $imgfiles->getClientOriginalName();
+        //         $imgfiles->move(public_path() . '/images/news/', $name);
+        //         $imageData[] = $name;
+        //     }
+        //     $news->postImage = json_encode($imageData);
+        // };
         $news->save();
 
         $response=[
@@ -100,19 +110,31 @@ class NewsupdateController extends Controller
         $news->title=$request->title;
         $news->news=$request->news;
         $news->status=$request->status;
-        if ($request->hasFile('postImage')) {
-            if($news->postImage){
-                foreach (json_decode($news->postImage) as $postimg) {
-                   unlink('public/images/news/' . $postimg);
-                }
-            }
-            foreach ($request->file('postImage') as $imgfiles) {
-                $name = time() . "_" . $imgfiles->getClientOriginalName();
-                $imgfiles->move(public_path() . '/images/news/', $name);
-                $imageData[] = $name;
-            }
-            $news->PostImage = json_encode($imageData);
+
+        $newsImg = $request->file('postImage');
+
+        if($newsImg){
+            unlink($news->postImage);
+            $imgname = $time . $newsImg->getClientOriginalName();
+            $imguploadPath = ('public/images/news/image/');
+            $newsImg->move($imguploadPath, $imgname);
+            $newsImgUrl = $imguploadPath . $imgname;
+            $news->postImage = $newsImgUrl;
         }
+
+        // if ($request->hasFile('postImage')) {
+        //     if($news->postImage){
+        //         foreach (json_decode($news->postImage) as $postimg) {
+        //            unlink('public/images/news/' . $postimg);
+        //         }
+        //     }
+        //     foreach ($request->file('postImage') as $imgfiles) {
+        //         $name = time() . "_" . $imgfiles->getClientOriginalName();
+        //         $imgfiles->move(public_path() . '/images/news/', $name);
+        //         $imageData[] = $name;
+        //     }
+        //     $news->postImage = json_encode($imageData);
+        // }
         $news->save();
 
         $response=[
