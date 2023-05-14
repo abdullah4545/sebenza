@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('newsupdates', function (Blueprint $table) {
             $table->id();
             $table->text('title');
+            $table->string('slug');
             $table->longText('news');
             $table->text('postImage')->nullable();
             $table->string('status')->default('Active');

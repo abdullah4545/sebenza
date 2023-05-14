@@ -112,6 +112,7 @@ class NewsupdateController extends Controller
         $news->title=$request->title;
         $news->news=$request->news;
         $news->status=$request->status;
+        $news->slug=$request->slug;
 
         $newsImg = $request->file('postImage');
 
