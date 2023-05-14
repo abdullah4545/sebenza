@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Api\AccountpackageController;
 use App\Http\Controllers\Backend\Api\UserRolesController;
 use App\Http\Controllers\Backend\Api\UserController;
 use App\Http\Controllers\Backend\Api\BasicinfoController;
+use App\Http\Controllers\Backend\Api\NewsupdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,14 +55,18 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::post('userrole/update/{id}',[UserRolesController::class,'update'] );
     Route::get('getpermissions', [UserRolesController::class,'getpermissions']);
 
+    // users
     Route::resource('users', UserController::class,);
     Route::post('user/update/{id}', [UserController::class,'update']);
     Route::get('getroles', [UserController::class,'getuserroles']);
-
+    // basic infos
     Route::resource('basicinfos', BasicinfoController::class);
     Route::post('basicinfo/update', [BasicinfoController::class, 'update']);
     Route::post('pixel/analytics', [BasicinfoController::class, 'pixelanalytics']);
     Route::post('social/links', [BasicinfoController::class, 'sociallink']);
     Route::post('seo/meta', [BasicinfoController::class, 'seometa']);
+    // news and updates
+    Route::resource('newsupdates', NewsupdateController::class,);
+    Route::post('newsupdate/update/{id}', [NewsupdateController::class,'update']);
 
 });

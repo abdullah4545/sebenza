@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Http\Controllers\Backend\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Newsupdate;
+use Illuminate\Http\Request;
+
+class NewsupdateController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $news =Newsupdate::all();
+        $response = [
+            'status' => true,
+            'message'=>'List of news & updates',
+            "data"=> [
+                'news'=> $news,
+            ]
+
+        ];
+        return response()->json($response,200);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $news=new Newsupdate();
+        $news->title=$request->title;
+        $news->news=$request->news;
+        if ($request->hasFile('postImage')) {
+            foreach ($request->file('postImage') as $imgfiles) {
+                $name = time() . "_" . $imgfiles->getClientOriginalName();
+                $imgfiles->move(public_path() . '/images/news/', $name);
+                $imageData[] = $name;
+            }
+            $news->postImage = json_encode($imageData);
+        };
+        $news->save();
+
+        $response=[
+            "status"=>true,
+            'message' => "News & updates created successfully",
+            "data"=> [
+                'news'=> $news,
+            ]
+        ];
+        return response()->json($response, 200);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Newsupdate  $newsupdate
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $news=Newsupdate::where('id',$id)->first();
+        $response=[
+            "status"=>true,
+            'message' => "News & updates By ID",
+            "data"=> [
+                'news'=> $news,
+            ]
+        ];
+        return response()->json($response, 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Newsupdate  $newsupdate
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $news=Newsupdate::where('id',$id)->first();;
+        $news->title=$request->title;
+        $news->news=$request->news;
+        $news->status=$request->status;
+        if ($request->hasFile('postImage')) {
+            if($news->postImage){
+                foreach (json_decode($news->postImage) as $postimg) {
+                   unlink('public/images/news/' . $postimg);
+                }
+            }
+            foreach ($request->file('postImage') as $imgfiles) {
+                $name = time() . "_" . $imgfiles->getClientOriginalName();
+                $imgfiles->move(public_path() . '/images/news/', $name);
+                $imageData[] = $name;
+            }
+            $news->PostImage = json_encode($imageData);
+        }
+        $news->save();
+
+        $response=[
+            "status"=>true,
+            'message' => "News & updates updated successfully",
+            "data"=> [
+                'news'=> $news,
+            ]
+        ];
+        return response()->json($response, 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Newsupdate  $newsupdate
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $news=Newsupdate::where('id',$id)->first();
+        $news->delete();
+        $response=[
+            "status"=>true,
+            'message' => "News & updates Deleted Successfully",
+            "data"=> [
+                'news'=> [],
+            ]
+        ];
+        return response()->json($response, 200);
+    }
+}
