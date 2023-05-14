@@ -107,9 +107,9 @@ class UserRolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $role =Role::where('id',$request->role_id)->where('guard_name','web')->first();
+        $role =Role::where('id',$id)->where('guard_name','web')->first();
         $role->name=$request->roleName;
         $role->update();
 
