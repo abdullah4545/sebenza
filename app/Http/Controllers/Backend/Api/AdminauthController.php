@@ -20,7 +20,7 @@ class AdminauthController extends Controller
                 'status' =>false,
                 'message' => "Email Already Taken",
                 "data"=> [
-                    "admin"=>[],
+                    "user"=>[],
                 ]
             ];
             return response()->json($response,201);
@@ -29,7 +29,7 @@ class AdminauthController extends Controller
                 'status' =>false,
                 'message' => "Phone number has Already Taken",
                 "data"=> [
-                    "admin"=>[],
+                    "user"=>[],
                 ]
             ];
             return response()->json($response,201);
@@ -53,7 +53,7 @@ class AdminauthController extends Controller
                 "message"=>"Admin Create Successfully",
                 "data"=> [
                     'token' => $token,
-                    "admin"=>$admin,
+                    "user"=>$admin,
                 ]
             ];
             return response()->json($response, 200);
@@ -69,7 +69,7 @@ class AdminauthController extends Controller
                     "message"=>"Login failed",
                     "data"=> [
                         'token' => '',
-                        "admin"=>[],
+                        "user"=>[],
                     ]
             ];
             return response()->json($error);
@@ -85,7 +85,7 @@ class AdminauthController extends Controller
             "message"=>"Login Successfully",
             "data"=> [
                 'token' => $token,
-                "admin"=>$admin,
+                "user"=>$admin,
             ]
         ];
 
@@ -101,7 +101,7 @@ class AdminauthController extends Controller
             "status"=>true,
             "message"=>"Admin Details",
             "data"=> [
-                "admin"=>$admin,
+                "user"=>$admin,
             ]
         ];
 
@@ -115,7 +115,7 @@ class AdminauthController extends Controller
             "status"=>true,
             "message" => 'Logout Successfully',
             "data"=> [
-                "admin"=>[],
+                "user"=>[],
             ]
         ];
         return response()->json($error);
