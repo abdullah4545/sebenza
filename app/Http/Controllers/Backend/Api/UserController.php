@@ -19,7 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users =User::with('roles')->get();
+        $uss =User::with('roles')->get();
+        foreach($uss as $us){
+            $use=$us;
+            $use->profile=env('PROD_URL').$use->profile;
+            $users[]=$use;
+        }
         $response = [
             'status' => true,
             'message'=>'List of users',
@@ -73,6 +78,7 @@ class UserController extends Controller
             if($request->roles){
                 $user->assignRole($request->roles);
             }
+            $user->profile=env('PROD_URL').$user->profile;
             $response=[
                 "status"=>true,
                 'message' => "User created successfully",
@@ -116,6 +122,8 @@ class UserController extends Controller
     {
         $roles =Role::where('guard_name','web')->get();
         $user =User::with('roles')->where('id',$id)->first();
+        $user->profile=env('PROD_URL').$user->profile;
+
         $response = [
             'status' => true,
             'message'=>'User By ID',
@@ -138,6 +146,7 @@ class UserController extends Controller
     public function update(Request $request,$id)
     {
         $user=User::where('id',$id)->first();
+        $user->profile=env('PROD_URL').$user->profile;
 
         if(isset($user)){
             $user->first_name=$request->first_name;

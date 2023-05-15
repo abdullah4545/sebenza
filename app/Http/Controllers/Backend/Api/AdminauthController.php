@@ -35,7 +35,8 @@ class AdminauthController extends Controller
             return response()->json($response,201);
         }else{
             $admin=new Admin();
-            $admin->name=$request->name;
+            $admin->first_name=$request->first_name;
+            $admin->last_name=$request->last_name;
             $admin->phone=$request->phone;
             $admin->email=$request->email;
             $admin->password=Hash::make($request->password);
@@ -45,6 +46,8 @@ class AdminauthController extends Controller
                 $admin->assignRole($request->roles);
             }
             $token = $admin->createToken('admin')->plainTextToken;
+            $admin->profile=env('PROD_URL').$admin->profile;
+
             $response=[
                 "status"=>true,
                 "message"=>"Admin Create Successfully",
@@ -75,6 +78,7 @@ class AdminauthController extends Controller
         $admin = Admin::with('roles')->where('id', $admin->id)->first();
 
         $token = $admin->createToken('admin')->plainTextToken;
+        $admin->profile=env('PROD_URL').$admin->profile;
 
         $response = [
             "status"=>true,
@@ -91,6 +95,7 @@ class AdminauthController extends Controller
     public function admindetails($id){
 
         $admin = Admin::with('roles')->where('id', $id)->first();
+        $admin->profile=env('PROD_URL').$admin->profile;
 
         $response = [
             "status"=>true,

@@ -63,6 +63,9 @@ class UserauthController extends Controller
             $user->save();
 
             $token = $user->createToken('user')->plainTextToken;
+
+            $user->profile=env('PROD_URL').$user->profile;
+
             $response=[
                 "status"=>true,
                 "message"=>"User Create Successfully",
@@ -73,7 +76,6 @@ class UserauthController extends Controller
             ];
             return response()->json($response, 200);
         }
-
     }
 
     public function userlogin(Request $request){
@@ -111,7 +113,7 @@ class UserauthController extends Controller
     public function userdetails($id){
 
         $user = User::with('roles')->where('id', $id)->first();
-
+        $user->profile=env('PROD_URL').$user->profile;
         $response = [
             "status"=>true,
             "message"=>"User Details",
