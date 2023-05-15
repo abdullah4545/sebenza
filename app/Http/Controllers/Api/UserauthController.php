@@ -95,7 +95,7 @@ class UserauthController extends Controller
         $user = User::with(['roles'=>function ($query) { $query->select('id','name','guard_name');}])->where('id', $user->id)->first();
 
         $token = $user->createToken('user')->plainTextToken;
-
+        $user->profile=env('PROD_URL').$user->profile;
         $response = [
             "status"=>true,
             "message"=>"Login Successfully",
