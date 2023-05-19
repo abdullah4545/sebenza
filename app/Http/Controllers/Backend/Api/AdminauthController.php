@@ -9,6 +9,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+use Spatie\Permission\Models\Role;
 
 class AdminauthController extends Controller
 {
@@ -58,6 +59,19 @@ class AdminauthController extends Controller
             ];
             return response()->json($response, 200);
         }
+    }
+
+    public function getroles(){
+        $roles =Role::where('guard_name','admin')->get();
+        $response = [
+            'status' => true,
+            'message'=>'List of admin roles',
+            "data"=> [
+                'roles'=> $roles,
+            ]
+
+        ];
+        return response()->json($response,200);
     }
 
     public function adminlogin(Request $request){

@@ -44,6 +44,7 @@ Route::post('admin/logout', [AdminauthController::class, 'adminlogout']);
 Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
 
     Route::get('/details/{id}', [AdminauthController::class,'admindetails']);
+    Route::get('getadminroles', [AdminauthController::class,'getroles']);
 
     Route::resource('accounttypes', AccounttypeController::class,);
     Route::post('accounttype/update', [AccounttypeController::class, 'update']);
@@ -59,6 +60,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::resource('users', UserController::class,);
     Route::post('user/update/{id}', [UserController::class,'update']);
     Route::get('getroles', [UserController::class,'getuserroles']);
+
     // basic infos
     Route::resource('basicinfos', BasicinfoController::class);
     Route::post('basicinfo/update', [BasicinfoController::class, 'update']);
