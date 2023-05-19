@@ -65,7 +65,7 @@ class UserauthController extends Controller
 
             $token = $user->createToken('user')->plainTextToken;
 
-            $user->profile=env('PROD_URL').$user->profile;
+            $user->profile=env('PROD_URL').'public/backend/img/user.jpg';
 
             $response=[
                 "status"=>true,
