@@ -47,7 +47,7 @@ class AdminauthController extends Controller
                 $admin->assignRole($request->roles);
             }
             $token = $admin->createToken('admin')->plainTextToken;
-            $admin->profile=env('PROD_URL').$admin->profile;
+            $admin->profile=env('PROD_URL').'public/backend/img/user.jpg';
 
             $response=[
                 "status"=>true,
