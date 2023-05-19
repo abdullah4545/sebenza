@@ -74,11 +74,12 @@ class UserController extends Controller
             $user->email=$request->email;
             $user->password=Hash::make($request->password);
             $user->phone=$request->phone;
+            $user->membership_code=$this->uniqueID();
             $user->save();
             if($request->roles){
                 $user->assignRole($request->roles);
             }
-            $user->profile=env('PROD_URL').$user->profile;
+            $user->profile=env('PROD_URL').'public/backend/img/user.jpg';
             $response=[
                 "status"=>true,
                 'message' => "User created successfully",
@@ -89,6 +90,22 @@ class UserController extends Controller
             return response()->json($response, 200);
         }
 
+    }
+
+    public function uniqueID()
+    {
+        $lastmember = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'superuser');
+                }
+            )->first();
+        if ($lastmember) {
+            $menberID = $lastmember->id + 1;
+        } else {
+            $menberID = 1;
+        }
+
+        return 'SEBENZA00' . $menberID;
     }
 
     /**

@@ -141,4 +141,3 @@ class AccounttypeController extends Controller
     }
 
 }
-

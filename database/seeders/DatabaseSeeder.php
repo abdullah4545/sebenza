@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
         //  $this->call(UserSeeder::class);
          $this->call(RolePermissionSeeder::class);
          $this->call(UserRolePermissionSeeder::class);
-        // \App\Models\User::factory(10)->create();
          $this->call(BasicinfoSeeder::class);
          $this->call(AdminSeeder::class);
+         $this->call(AccounttypeSeeder::class);
+         $this->call(AccountpackageSeeder::class);
+         $this->call(NewsupdateSeeder::class);
 
     }
 }

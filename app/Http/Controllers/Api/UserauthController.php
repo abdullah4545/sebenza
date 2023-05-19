@@ -44,6 +44,7 @@ class UserauthController extends Controller
             $user->phone=$request->phone;
             $user->email=$request->email;
             $user->password=Hash::make($request->password);
+            $user->membership_code=$this->uniqueID();
             $user->company_name=$request->company_name;
             $user->account_type_id=$request->account_type_id;
             if(isset($request->account_type_id)){
@@ -77,6 +78,24 @@ class UserauthController extends Controller
             return response()->json($response, 200);
         }
     }
+
+
+    public function uniqueID()
+    {
+        $lastmember = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'superuser');
+                }
+            )->first();
+        if ($lastmember) {
+            $menberID = $lastmember->id + 1;
+        } else {
+            $menberID = 1;
+        }
+
+        return 'SEBENZA00' . $menberID;
+    }
+
 
     public function userlogin(Request $request){
         $user = User::where('email', $request->email)

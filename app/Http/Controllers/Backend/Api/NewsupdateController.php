@@ -117,7 +117,11 @@ class NewsupdateController extends Controller
         $newsImg = $request->file('postImage');
 
         if($newsImg){
-            unlink($news->postImage);
+            if($news->postImage=='public/test.jpg'){
+
+            }else{
+                unlink($news->postImage);
+            }
             $imgname = $time . $newsImg->getClientOriginalName();
             $imguploadPath = ('public/images/news/image/');
             $newsImg->move($imguploadPath, $imgname);

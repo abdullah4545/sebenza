@@ -36,7 +36,7 @@ Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
 });
 
 // admin login api
-Route::post('admin/register', [AdminauthController::class, 'adminstore']);
+Route::post('admin/register', [AdminauthController::class, 'c']);
 Route::post('admin/login', [AdminauthController::class, 'adminlogin']);
 Route::post('admin/logout', [AdminauthController::class, 'adminlogout']);
 
