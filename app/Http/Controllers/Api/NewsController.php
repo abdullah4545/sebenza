@@ -22,6 +22,8 @@ class NewsController extends Controller
                 $use->postImage=env('PROD_URL').$use->postImage;
                 $news[]=$use;
             }
+        }else{
+            $news=[];
         }
 
         $response = [
