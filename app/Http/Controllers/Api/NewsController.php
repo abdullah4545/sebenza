@@ -22,7 +22,11 @@ class NewsController extends Controller
                 $use->postImage=env('PROD_URL').$use->postImage;
                 $se=Seennewsupdate::where('news_id',$use->id)->where('user_id',$id)->first();
                 if(isset($se)){
-                    $use->seen=$se->seen;
+                    if($se==1){
+                        $use->seen=true;
+                    }else{
+                        $use->seen=false;
+                    }
                 }else{
                     $use->seen=false;
                 }
