@@ -32,6 +32,8 @@ Route::get('getpackages', [AccountpackageController::class, 'getpackage']);
 Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
 
     Route::get('/details/{id}', [UserauthController::class,'userdetails']);
+    Route::get('newsupdates', [NewsupdateController::class,'getnews']);
+    Route::get('newsupdate/{slug}', [NewsupdateController::class,'getnewsbyid']);
 
 });
 
@@ -68,7 +70,7 @@ Route::group(['prefix'=>'admin','middleware' => ['auth:sanctum']], function () {
     Route::post('social/links', [BasicinfoController::class, 'sociallink']);
     Route::post('seo/meta', [BasicinfoController::class, 'seometa']);
     // news and updates
-    Route::resource('newsupdates', NewsupdateController::class,);
+    Route::resource('newsupdates', NewsupdateController::class);
     Route::post('newsupdate/update/{id}', [NewsupdateController::class,'update']);
 
 });

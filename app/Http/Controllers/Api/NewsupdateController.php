@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
+use App\Http\Controllers\Controller;
 
 use App\Models\Newsupdate;
 use Illuminate\Http\Request;
@@ -22,9 +23,32 @@ class NewsupdateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getnews()
     {
-        //
+        $news =Newsupdate::where('status','Active')->get();
+        $response = [
+            'status' => true,
+            'message'=>'List of active news & updates',
+            "data"=> [
+                'news'=> $news,
+            ]
+
+        ];
+        return response()->json($response,200);
+    }
+
+    public function getnewsbyid($slug)
+    {
+        $news =Newsupdate::where('slug',$slug)->where('status','Active')->first();
+        $response = [
+            'status' => true,
+            'message'=>'News & updates by id',
+            "data"=> [
+                'news'=> $news,
+            ]
+
+        ];
+        return response()->json($response,200);
     }
 
     /**

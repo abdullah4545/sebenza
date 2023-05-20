@@ -29,4 +29,9 @@ class Newsupdate extends Model
         return 'slug';
     }
 
+    public function seens()
+    {
+        return $this->hasMany(Seennewsupdate::class, 'news_id');
+    }
+
 }
