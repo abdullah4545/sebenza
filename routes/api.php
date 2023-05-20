@@ -34,8 +34,8 @@ Route::get('getpackages', [AccountpackageController::class, 'getpackage']);
 Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
 
     Route::get('/details/{id}', [UserauthController::class,'userdetails']);
-    Route::get('newsupdates', [NewsController::class,'getnews']);
-    Route::get('newsupdate/{slug}', [NewsController::class,'getnewsbyid']);
+    Route::get('/newsupdates', [NewsController::class,'getnews']);
+    Route::get('/newsupdate/{slug}', [NewsController::class,'getnewsbyid']);
 
 });
 
