@@ -30,13 +30,14 @@ Route::post('login', [UserauthController::class, 'userlogin']);
 Route::post('logout', [UserauthController::class, 'userlogout']);
 Route::get('gettypes', [AccounttypeController::class, 'gettype']);
 Route::get('getpackages', [AccountpackageController::class, 'getpackage']);
-Route::get('newsupdates', [NewsController::class,'getnews']);
-Route::get('newsupdate/{slug}', [NewsController::class,'getnewsbyid']);
+Route::get('newsupdates', [NewsController::class,'getpubnews']);
+Route::get('newsupdate/{slug}', [NewsController::class,'getpubnewsbyid']);
 
 Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
 
     Route::get('/details/{id}', [UserauthController::class,'userdetails']);
-
+    Route::get('newsupdates/{id}', [NewsController::class,'getnews']);
+    Route::get('newsupdate/{slug}', [NewsController::class,'getnewsbyid']);
 
 });
 
