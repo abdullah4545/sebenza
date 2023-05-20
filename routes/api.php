@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\Api\UserRolesController;
 use App\Http\Controllers\Backend\Api\UserController;
 use App\Http\Controllers\Backend\Api\BasicinfoController;
 use App\Http\Controllers\Backend\Api\NewsupdateController;
+use App\Http\Controllers\Api\NewsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,8 @@ Route::get('getpackages', [AccountpackageController::class, 'getpackage']);
 Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
 
     Route::get('/details/{id}', [UserauthController::class,'userdetails']);
-    Route::get('newsupdates', [App\Controllers\Api\NewsupdateController::class,'getnews']);
-    Route::get('newsupdate/{slug}', [App\Controllers\Api\NewsupdateController::class,'getnewsbyid']);
+    Route::get('newsupdates', [NewsController::class,'getnews']);
+    Route::get('newsupdate/{slug}', [NewsController::class,'getnewsbyid']);
 
 });
 
