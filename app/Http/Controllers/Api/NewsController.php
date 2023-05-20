@@ -16,10 +16,12 @@ class NewsController extends Controller
                 ->select('newsupdates.*', 'seennewsupdates.seen')
                 ->where('status','Active')->get();
 
-        foreach($uss as $us){
-            $use=$us;
-            $use->postImage=env('PROD_URL').$use->postImage;
-            $news[]=$use;
+        if(count($uss)>0){
+            foreach($uss as $us){
+                $use=$us;
+                $use->postImage=env('PROD_URL').$use->postImage;
+                $news[]=$use;
+            }
         }
 
         $response = [
