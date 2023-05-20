@@ -11,7 +11,14 @@ class NewsController extends Controller
 {
      public function getnews()
     {
-        $news =Newsupdate::where('status','Active')->get();
+        $uss =Newsupdate::where('status','Active')->get();
+
+        foreach($uss as $us){
+            $use=$us;
+            $use->postImage=env('PROD_URL').$use->postImage;
+            $news[]=$use;
+        }
+
         $response = [
             'status' => true,
             'message'=>'List of active news & updates',
@@ -26,6 +33,7 @@ class NewsController extends Controller
     public function getnewsbyid($slug)
     {
         $news =Newsupdate::where('slug',$slug)->where('status','Active')->first();
+        $news->postImage=env('PROD_URL').$news->postImage;
         $response = [
             'status' => true,
             'message'=>'News & updates by id',

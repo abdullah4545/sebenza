@@ -15,7 +15,14 @@ class NewsupdateController extends Controller
      */
     public function index()
     {
-        $news =Newsupdate::all();
+        $uss =Newsupdate::all();
+
+        foreach($uss as $us){
+            $use=$us;
+            $use->postImage=env('PROD_URL').$use->postImage;
+            $news[]=$use;
+        }
+
         $response = [
             'status' => true,
             'message'=>'List of news & updates',
@@ -68,6 +75,7 @@ class NewsupdateController extends Controller
         //     $news->postImage = json_encode($imageData);
         // };
         $news->save();
+        $news->postImage=env('PROD_URL').$news->postImage;
 
         $response=[
             "status"=>true,
@@ -88,6 +96,7 @@ class NewsupdateController extends Controller
     public function edit($id)
     {
         $news=Newsupdate::where('id',$id)->first();
+        $news->postImage=env('PROD_URL').$news->postImage;
         $response=[
             "status"=>true,
             'message' => "News & updates By ID",
@@ -143,6 +152,7 @@ class NewsupdateController extends Controller
         //     $news->postImage = json_encode($imageData);
         // }
         $news->save();
+        $news->postImage=env('PROD_URL').$news->postImage;
 
         $response=[
             "status"=>true,
