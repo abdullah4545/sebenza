@@ -15,7 +15,7 @@ class NewsController extends Controller
         $uss =Newsupdate::join('seennewsupdates', 'seennewsupdates.news_id', '=', 'newsupdates.id')
                 ->select('newsupdates.*', 'seennewsupdates.seen')
                 ->where('status','Active')->get();
-        return $uss;
+
         if(count($uss)>0){
             foreach($uss as $us){
                 $use=$us;
@@ -23,7 +23,7 @@ class NewsController extends Controller
                 $news[]=$use;
             }
         }else{
-            $news=[]
+            $news=[];
         }
 
         $response = [
