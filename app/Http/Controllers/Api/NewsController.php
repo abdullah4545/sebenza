@@ -58,6 +58,8 @@ class NewsController extends Controller
             $seen->save();
         }
 
+        $news->seen=true;
+
         $response = [
             'status' => true,
             'message'=>'News & updates view by ID',
