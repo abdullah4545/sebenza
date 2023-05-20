@@ -37,7 +37,7 @@ Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
 
     Route::get('/details/{id}', [UserauthController::class,'userdetails']);
     Route::get('newsupdates/{id}', [NewsController::class,'getnews']);
-    Route::get('newsupdate/{slug}', [NewsController::class,'getnewsbyid']);
+    Route::post('newsupdate/view', [NewsController::class,'getnewsbyid']);
 
 });
 
