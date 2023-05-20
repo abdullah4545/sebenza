@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Newsupdate;
+use DB;
 
 class NewsController extends Controller
 {
      public function getnews()
     {
-        $uss =Newsupdate::where('status','Active')->get();
+        $uss =Newsupdate::where('status','Active')
+                ->join('seennewsupdates', 'seennewsupdates.news_id', '=', 'newsupdates.id')
+                ->select('newsupdates.*', 'seennewsupdates.seen')
+                ->get();
 
         foreach($uss as $us){
             $use=$us;
