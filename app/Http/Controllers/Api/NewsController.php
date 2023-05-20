@@ -12,9 +12,7 @@ class NewsController extends Controller
 {
      public function getnews()
     {
-        $uss =Newsupdate::join('seennewsupdates', 'seennewsupdates.news_id', '=', 'newsupdates.id')
-                ->select('newsupdates.*', 'seennewsupdates.seen')
-                ->where('status','Active')->get();
+        $uss =Newsupdate::with('seens')->where('status','Active')->get();
 
         if(count($uss)>0){
             foreach($uss as $us){
