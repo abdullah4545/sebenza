@@ -11,9 +11,21 @@ use App\Models\Accountpackage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+use App\Imports\UserImport;
+use Excel;
 
 class UserauthController extends Controller
 {
+
+    public function userImport(Request $request){
+        Excel::import(new UserImport, $request->file);
+        $response = [
+            'status' =>true,
+            'message' => "Unique user Import Successfull",
+        ];
+        return response()->json($response,201);
+    }
+
     public function userstore(Request $request){
         $email=User::where('email', $request->email)->first();
         $phonenumber=User::where('phone', $request->phone)->first();

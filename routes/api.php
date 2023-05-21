@@ -39,6 +39,7 @@ Route::group(['prefix'=>'user','middleware' => ['auth:sanctum']], function () {
     Route::get('newsupdates/{id}', [NewsController::class,'getnews']);
     Route::post('newsupdate/view', [NewsController::class,'getnewsbyid']);
     // createuser
+    Route::post('import', [UserauthController::class, 'userImport']);
     Route::post('add-by/{slug}', [UserauthController::class, 'usercreate']);
 
 });
