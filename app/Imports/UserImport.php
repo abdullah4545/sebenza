@@ -36,7 +36,7 @@ class UserImport implements ToModel
             $user->country=$row[5];
             $user->city=$row[6];
             $user->address=$row[7];
-            $user->assignRole($row[8]);
+            $user->assignRole('testRo');
             $user->save();
         }
 
