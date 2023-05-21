@@ -57,7 +57,7 @@ class NewsController extends Controller
         }else{
             $seen=new Seennewsupdate();
             $seen->seen=true;
-            $seen->news_id=true;
+            $seen->news_id=$news->id;
             $seen->user_id=$request->user_id;
             $seen->save();
         }
