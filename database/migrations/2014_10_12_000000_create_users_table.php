@@ -21,9 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('company_name');
-            $table->string('membership_code');
-            $table->longText('profile')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('membership_code')->nullable();
+            $table->string('member_by')->nullable();
+            $table->longText('profile')->default('public/backend/user.jpg');
             $table->string('account_type')->nullable();
             $table->integer('account_type_id')->nullable();
             $table->string('country')->nullable();

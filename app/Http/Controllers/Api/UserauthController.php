@@ -79,6 +79,58 @@ class UserauthController extends Controller
         }
     }
 
+    public function usercreate(Request $request,$code){
+        $email=User::where('email', $request->email)->first();
+        $phonenumber=User::where('phone', $request->phone)->first();
+        if($email){
+            $response = [
+                'status' =>false,
+                'message' => "Email Already Taken",
+                "data"=> [
+                    "token"=> '',
+                    "user"=>[],
+                ]
+            ];
+            return response()->json($response,201);
+        }elseif($phonenumber){
+                $response = [
+                    'status' =>false,
+                    'message' => "Phone number has Already Taken",
+                    "data"=> [
+                        "token"=> '',
+                        "user"=>[],
+                    ]
+                ];
+            return response()->json($response,201);
+        }else{
+            $memby=User::where('membership_code', $code)->first();
+            $user=new User();
+            $user->first_name=$request->first_name;
+            $user->last_name=$request->last_name;
+            $user->phone=$request->phone;
+            $user->email=$request->email;
+            $user->password=Hash::make($request->password);
+            $user->member_by=$code;
+            $user->company_name=$memby->company_name;
+            $user->country=$request->country;
+            $user->city=$request->city;
+            $user->address=$request->address;
+            $user->assignRole($request->role);
+            $user->save();
+
+            $user->profile=env('PROD_URL').'public/backend/img/user.jpg';
+
+            $response=[
+                "status"=>true,
+                "message"=>"User Create Successfully",
+                "data"=> [
+                    "user"=>$user,
+                ]
+            ];
+            return response()->json($response, 200);
+        }
+    }
+
 
     public function uniqueID()
     {
