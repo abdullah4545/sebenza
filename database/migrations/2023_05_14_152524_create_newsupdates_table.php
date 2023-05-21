@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('title');
             $table->string('slug');
             $table->longText('news');
-            $table->boolean('seen');
+            $table->boolean('seen')->nullable();
             $table->text('postImage')->nullable();
             $table->string('status')->default('Active');
             $table->timestamps();
