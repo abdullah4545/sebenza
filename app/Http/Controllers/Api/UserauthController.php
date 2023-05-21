@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
 use App\Imports\UserImport;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserauthController extends Controller
 {
